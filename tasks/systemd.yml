@@ -1,0 +1,46 @@
+---
+
+- debug: var=ansible_service_mgr
+
+- block:
+
+    - name: install systemd configuration
+      template:
+        src: systemd-tailon.service.j2
+        dest: /lib/systemd/system/tailon.service
+        mode: '0644'
+        backup: yes
+      register: systemd
+      ignore_errors: true
+      notify:
+        - reload systemd
+        - restart tailon
+
+    - block:
+        - include: "immutable.yml target_dir=/lib/systemd/system state=pre"
+        - include: "immutable.yml target_dir=/lib/systemd/system/tailon.service state=pre"
+        - name: install systemd configuration
+          template:
+            src: systemd-tailon.service.j2
+            dest: /lib/systemd/system/tailon.service
+            mode: '0644'
+            backup: yes
+          register: systemd
+          notify:
+            - reload systemd
+            - restart tailon
+        - include: "immutable.yml target_dir=/lib/systemd/system state=post"
+      when: systemd is failed
+
+#  when: ansible_service_mgr == 'systemd'
+  when: >
+    (ansible_distribution == "Ubuntu" and ansible_distribution_major_version|int >= 16) or
+    (ansible_os_family == "RedHat" and ansible_distribution_major_version|int >= 7)
+
+- meta: flush_handlers
+
+- name: enable and start tailon systemd service
+  service:
+    name: tailon
+    enabled: "{{ tailon_svc_enable | default(true) }}"
+    state: "{{ tailon_svc_state | default('started') }}"

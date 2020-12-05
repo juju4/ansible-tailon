@@ -1,0 +1,46 @@
+---
+
+- name: Download tailon
+  get_url:
+    url: "{{ tailon_url }}"
+    dest: "{{ tailon_archives | default('/tmp') }}"
+    mode: '0644'
+    checksum: "{{ tailon_checksum }}"
+
+- name: Unarchive tailon
+  unarchive:
+    src: "{{ tailon_archives | default('/tmp') }}/{{ tailon_url | basename }}"
+    dest: "{{ tailon_dst_bin | default('/usr/local/bin') }}"
+    mode: '0700'
+    owner: "{{ tailon_user }}"
+    group: root
+    remote_src: true
+    creates: "{{ tailon_dst_bin | default('/usr/local/bin') }}/tailon"
+
+- name: Delete few files
+  file:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ tailon_dst_bin | default('/usr/local/bin') }}/LICENSE"
+    - "{{ tailon_dst_bin | default('/usr/local/bin') }}/README.md"
+
+- name: Configure tailon
+  template:
+    src: "{{ tailon_conf_template | default('tailon.toml.j2') }}"
+    dest: /etc/tailon.toml
+    mode: '0644'
+  notify:
+    - restart tailon
+
+- name: Ensure tailon user exists
+  user:
+    name: "{{ tailon_user }}"
+    comment: Tailon service account
+    shell: /sbin/nologin
+    home: /var/_tailon
+    create_home: false
+    group: "{% if ansible_os_family == 'RedHat' %}nobody{% else %}nogroup{% endif %}"
+    groups: "{{ tailon_groups }}"
+    append: "{{ tailon_groups_append | default(false) }}"
+    system: true

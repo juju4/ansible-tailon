@@ -1,0 +1,10 @@
+---
+
+- name: Ensure tailon user can access logs with acl
+  acl:
+    path: "{{ item }}"
+    entity: "{{ tailon_user }}"
+    etype: user
+    permissions: r
+    state: present
+  with_items: "{{ tailon_logs_list }}"

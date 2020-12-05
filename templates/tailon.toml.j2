@@ -1,0 +1,37 @@
+title = "Tailon file viewer"
+relative-root = "/"
+listen-addr = ["{{ tailon_host | default('') }}:{{ tailon_port | default('8080') }}"]
+allow-download = false
+#allow-commands = ["tail", "grep", "sed", "awk"]
+allow-commands = ["tail", "grep", "grepcolor", "grepself", "greperrors"]
+# no config option for those (only in tailon/frontend/js/main.js)
+#'linesOfHistory': 2000,  // 0 for infinite history
+#'linesToTail': 10,
+#'wrapLines': false,
+[commands]
+  [commands.tail]
+  action = ["tail", "-n", "$lines", "-F", "$path"]
+  [commands.grep]
+  stdin = "tail"
+  action = ["grep", "--text", "--line-buffered", "--color=never", "-e", "$script"]
+  default = ".*"
+  [commands.grepcolor]	# NOK
+  stdin = "tail"
+  action = ["grep", "--text", "--line-buffered", "--color=always", "-e", "$script"]
+  default = ".*"
+  [commands.grepself]	# NOK
+  stdin = "tail"
+  action = ["grep", "--text", "--line-buffered", "--color=always", "-e", "$script"]
+  default = "CLIENT_IP"
+  [commands.greperrors]	# NOK
+  stdin = "tail"
+  #action = ["grep", "--text", "--line-buffered", "--color=always", "-i", "-e", "'(ERROR|WARN|CRITICAL|\"[45]0[0-9]\")'"]
+  action = ["grep", "--text", "--line-buffered", "--color=always", "-iE", "-e", "'(WARN|CRITICAL|FATAL|ALERT|\"[45]0[0-9]\")'"]
+#  [commands.sed]
+#  stdin = "tail"
+#  action = ["sed", "-u", "-e", "$script"]
+#  default = "s/.*/&/"
+#  [commands.awk]
+#  stdin = "tail"
+#  action = ["awk", "--sandbox", "$script"]
+#  default = "{print $0; fflush()}"

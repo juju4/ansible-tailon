@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include juju4.tailon"
+      include_role:
+        name: "juju4.tailon"

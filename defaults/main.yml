@@ -1,0 +1,18 @@
+---
+# defaults file for juju4.tailon
+
+tailon_url: https://github.com/gvalkov/tailon/releases/download/v1.1.0/tailon_1.1.0_linux_amd64.tar.gz
+tailon_checksum: 'sha256:d1f465081a011ffd9965bf964df6caf8f52aad66cdb75221dcc0cf80867dabe9'
+tailon_user: _tailon
+tailon_groups: ''
+
+tailon_args: '--config=/etc/tailon.toml'
+tailon_logs_list:
+  - /var/log/messages
+  - /var/log/secure
+  - /var/log/syslog
+  - /var/log/auth.log
+
+tailon_syslog_enable: false
+tailon_syslog_target: /var/log/tailon.log
+#tailon_syslog_target: @@remotesyslog

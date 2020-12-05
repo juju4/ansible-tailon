@@ -1,0 +1,19 @@
+galaxy_info:
+  author: juju4
+  description: Install webapp for looking at and searching through files and streams
+  license: BSD-2
+  min_ansible_version: 2.1
+  platforms:
+    - name: EL
+      versions:
+      - 7
+      - 8
+    - name: Ubuntu
+      versions:
+        - focal
+        - bionic
+        - xenial
+  galaxy_tags:
+    - logging
+    - tail
+dependencies: []

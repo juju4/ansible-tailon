@@ -1,0 +1,9 @@
+{{ ansible_managed | comment }}
+{% if tailon_syslog_target is defined and tailon_syslog_target %}
+if $programname == 'tailon' then            {{ tailon_syslog_target }}
+{% if rsyslog_v is defined and rsyslog_v and rsyslog_v|string is version_compare('8.0', '<') %}
+& ~
+{% else %}
+& stop
+{% endif %}
+{% endif %}

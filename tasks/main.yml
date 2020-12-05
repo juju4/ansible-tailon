@@ -1,0 +1,7 @@
+---
+# tasks file for juju4.tailon
+
+- include: tailon.yml
+- include: logs-acl.yml
+- include: systemd.yml
+- include: rsyslog-tailon.yml
