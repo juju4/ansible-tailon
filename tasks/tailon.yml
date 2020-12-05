@@ -1,5 +1,17 @@
 ---
 
+- name: Ensure tailon user exists
+  user:
+    name: "{{ tailon_user }}"
+    comment: Tailon service account
+    shell: /sbin/nologin
+    home: /var/_tailon
+    create_home: false
+    group: "{% if ansible_os_family == 'RedHat' %}nobody{% else %}nogroup{% endif %}"
+    groups: "{{ tailon_groups }}"
+    append: "{{ tailon_groups_append | default(false) }}"
+    system: true
+
 - name: Download tailon
   get_url:
     url: "{{ tailon_url }}"
@@ -32,15 +44,3 @@
     mode: '0644'
   notify:
     - restart tailon
-
-- name: Ensure tailon user exists
-  user:
-    name: "{{ tailon_user }}"
-    comment: Tailon service account
-    shell: /sbin/nologin
-    home: /var/_tailon
-    create_home: false
-    group: "{% if ansible_os_family == 'RedHat' %}nobody{% else %}nogroup{% endif %}"
-    groups: "{{ tailon_groups }}"
-    append: "{{ tailon_groups_append | default(false) }}"
-    system: true
