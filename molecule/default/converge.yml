@@ -1,6 +1,8 @@
 ---
 - name: Converge
   hosts: all
+  vars:
+    tailon_logs_list: []
   tasks:
     - name: "Include juju4.tailon"
       include_role:
