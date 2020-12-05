@@ -22,6 +22,6 @@
   service: name=rsyslog state=restarted
   when: >
     not (ansible_virtualization_type is defined and
-          (ansible_virtualization_type == "docker" or ansible_virtualization_type == "VirtualPC")
+          (ansible_virtualization_type == "docker" or ansible_virtualization_type == "VirtualPC") and
           (ansible_distribution == 'Alpine' or ansible_os_family == 'RedHat')
         )
