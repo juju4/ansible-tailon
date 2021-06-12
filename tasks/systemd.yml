@@ -1,6 +1,7 @@
 ---
 
-- debug: var=ansible_service_mgr
+- name: Debug | ansible_service_mgr
+  debug: var=ansible_service_mgr
 
 - block:
 
@@ -37,7 +38,8 @@
     (ansible_distribution == "Ubuntu" and ansible_distribution_major_version|int >= 16) or
     (ansible_os_family == "RedHat" and ansible_distribution_major_version|int >= 7)
 
-- meta: flush_handlers
+- name: Flush handlers
+  meta: flush_handlers
 
 - name: enable and start tailon systemd service
   service:
@@ -46,5 +48,5 @@
     state: "{{ tailon_svc_state | default('started') }}"
   when: >
     not (ansible_virtualization_type is defined and
-          (ansible_virtualization_type == "docker" or ansible_virtualization_type == "VirtualPC")
+          (ansible_virtualization_type == "docker" or ansible_virtualization_type == "containerd")
         )
