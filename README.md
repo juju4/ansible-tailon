@@ -5,7 +5,7 @@
 
 This role will install [Tailon](https://github.com/gvalkov/tailon), a web tail utility in Go.
 
-Be aware that this program maintenance state is uncertain.
+Be aware that this program maintenance state is uncertain. A notable updated was done in Oct 2024 after about 6 years of inactivity.
 Systemd is used to harden settings (restrict syscalls, namespaces, IP acl, cgroups limits) and avoid running unwanted commands like.
 ```
 tailon[33674]: 2020/01/01 19:54:33 Running command: [grep --text --line-buffered --color=never -e $(whoami)]
@@ -15,11 +15,11 @@ tailon[33674]: 2020/01/01 19:54:33 Running command: [grep --text --line-buffered
 
 ### Ansible
 It was tested on the following versions:
- * 2.10
+ * 2.10-2.18
 
 ### Operating systems
 
-Tested with molecule on Ubuntu 18.04, 20.04.
+Tested on Ubuntu 24.04, 22.04, 20.04, Centos/Rockylinux 9.
 
 ## Example Playbook
 
@@ -38,10 +38,9 @@ This role has a travis config leveraging molecule for testing.
 
 Once you ensured all necessary roles are present, You can test with:
 ```
-$ pip install molecule[docker]
+$ pip install molecule docker
 $ molecule test
-$ molecule --debug test
-$ MOLECULE_DISTRO=ubuntu:20.04 molecule test --destroy=never
+$ MOLECULE_DISTRO=ubuntu:24.04 molecule test --destroy=never
 ```
 
 ## Troubleshooting & Known issues
