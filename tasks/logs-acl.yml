@@ -1,7 +1,7 @@
 ---
 
 - name: Ensure tailon user can access logs with acl
-  acl:
+  ansible.posix.acl:
     path: "{{ item }}"
     entity: "{{ tailon_user }}"
     etype: user

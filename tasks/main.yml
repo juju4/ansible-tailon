@@ -1,7 +1,11 @@
 ---
 # tasks file for juju4.tailon
 
-- include: tailon.yml
-- include: logs-acl.yml
-- include: systemd.yml
-- include: rsyslog-tailon.yml
+- name: Import tailon
+  ansible.builtin.import_tasks: tailon.yml
+- name: Import logs-acl
+  ansible.builtin.import_tasks: logs-acl.yml
+- name: Import systemd
+  ansible.builtin.import_tasks: systemd.yml
+- name: Import rsyslog-tailon
+  ansible.builtin.import_tasks: rsyslog-tailon.yml

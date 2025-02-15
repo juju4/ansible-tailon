@@ -1,14 +1,14 @@
 ---
 
 - name: Ensure logrotate package is present
-  package:
+  ansible.builtin.package:
     name: logrotate
     state: present
   register: pkg_result
   until: pkg_result is success
 
-- name: add logrotate configuration for tailon log
-  template:
+- name: Add logrotate configuration for tailon log
+  ansible.builtin.template:
     src: logrotate-tailon.j2
     dest: /etc/logrotate.d/tailon
     mode: '0644'

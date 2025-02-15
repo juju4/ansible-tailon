@@ -1,48 +1,57 @@
 ---
 
 - name: Debug | ansible_service_mgr
-  debug: var=ansible_service_mgr
+  ansible.builtin.debug:
+    var: ansible_service_mgr
 
-- block:
-
-    - name: install systemd configuration
-      template:
+- name: Systemd
+  when: ansible_service_mgr == 'systemd'
+  block:
+    - name: Install systemd configuration
+      ansible.builtin.template:
         src: systemd-tailon.service.j2
         dest: /lib/systemd/system/tailon.service
         mode: '0644'
         backup: yes
-      register: systemd
-      ignore_errors: true
       notify:
-        - reload systemd
-        - restart tailon
-
-    - block:
-        - include: "immutable.yml target_dir=/lib/systemd/system state=pre"
-        - include: "immutable.yml target_dir=/lib/systemd/system/tailon.service state=pre"
-        - name: install systemd configuration
-          template:
-            src: systemd-tailon.service.j2
-            dest: /lib/systemd/system/tailon.service
-            mode: '0644'
-            backup: yes
-          register: systemd
-          notify:
-            - reload systemd
-            - restart tailon
-        - include: "immutable.yml target_dir=/lib/systemd/system state=post"
-      when: systemd is failed
-
-#  when: ansible_service_mgr == 'systemd'
-  when: >
-    (ansible_distribution == "Ubuntu" and ansible_distribution_major_version|int >= 16) or
-    (ansible_os_family == "RedHat" and ansible_distribution_major_version|int >= 7)
+        - Reload systemd
+        - Restart tailon
+  rescue:
+    - name: Import immutable
+      ansible.builtin.import_tasks: immutable.yml
+      vars:
+        target_dir: /lib/systemd/system
+        state: pre
+    - name: Import immutable
+      ansible.builtin.import_tasks: immutable.yml
+      vars:
+        target_dir: "/lib/systemd/system/tailon.service"
+        state: pre
+    - name: Install systemd configuration
+      ansible.builtin.template:
+        src: systemd-tailon.service.j2
+        dest: /lib/systemd/system/tailon.service
+        mode: '0644'
+        backup: yes
+      notify:
+        - Reload systemd
+        - Restart tailon
+    - name: Import immutable
+      ansible.builtin.import_tasks: immutable.yml
+      vars:
+        target_dir: /lib/systemd/system
+        state: post
+    - name: Import immutable
+      ansible.builtin.import_tasks: immutable.yml
+      vars:
+        target_dir: "/lib/systemd/system/{{ unit_name }}.service"
+        state: post
 
 - name: Flush handlers
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
 
-- name: enable and start tailon systemd service
-  service:
+- name: Enable and start tailon systemd service
+  ansible.builtin.service:
     name: tailon
     enabled: "{{ tailon_svc_enable | default(true) }}"
     state: "{{ tailon_svc_state | default('started') }}"

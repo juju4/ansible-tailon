@@ -5,5 +5,5 @@
     tailon_logs_list: []
   tasks:
     - name: "Include juju4.tailon"
-      include_role:
+      ansible.builtin.include_role:
         name: "juju4.tailon"

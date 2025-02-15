@@ -1,13 +1,15 @@
+---
 galaxy_info:
+  role_name: tailon
   author: juju4
   description: Install webapp for looking at and searching through files and streams
   license: BSD-2
-  min_ansible_version: 2.1
+  min_ansible_version: '2.1'
   platforms:
     - name: EL
       versions:
-      - 7
-      - 8
+        - '7'
+        - '8'
     - name: Ubuntu
       versions:
         - focal

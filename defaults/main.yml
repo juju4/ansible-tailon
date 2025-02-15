@@ -15,4 +15,4 @@ tailon_logs_list:
 
 tailon_syslog_enable: false
 tailon_syslog_target: /var/log/tailon/tailon.log
-#tailon_syslog_target: @@remotesyslog
+# tailon_syslog_target: @@remotesyslog
