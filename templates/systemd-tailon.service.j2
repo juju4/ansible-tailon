@@ -33,7 +33,7 @@ ReadOnlyPaths=/var/log
 ProtectKernelTunables=true
 ProtectKernelModules=yes
 ProtectKernelLogs=yes
-ProtectHostname=yes
+# ProtectHostname=yes
 ProtectClock=yes
 ProtectControlGroups=true
 LockPersonality=true
@@ -88,7 +88,7 @@ SystemCallErrorNumber=EPERM
 
 CPUWeight={{ tailon_cgroups_cpushares | default('20') }}
 CPUQuota={{ tailon_cgroups_cpuquota | default('20%') }}
-MemoryLimit={{ tailon_cgroups_memorylimit | default('1G') }}
+MemoryMax={{ tailon_cgroups_memorylimit | default('1G') }}
 IOWeight={{ tailoncgroups_cpushares | default('20') }}
 
 [Install]
