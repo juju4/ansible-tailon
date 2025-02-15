@@ -34,7 +34,7 @@
 - name: Install tailon
   ansible.builtin.copy:
     src: "{{ tailon_archives | default('/tmp') }}/{{ tailon_url | basename }}"
-    dest: "{{ tailon_dst_bin | default('/usr/local/bin') }}"
+    dest: "{{ tailon_dst_bin | default('/usr/local/bin/tailon') }}"
     mode: '0700'
     owner: root
     group: root
