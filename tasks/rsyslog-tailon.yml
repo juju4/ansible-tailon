@@ -38,7 +38,7 @@
     mode: '0644'
     backup: yes
   notify:
-    - restart rsyslog
+    - Restart rsyslog
 
 # only if file, not if remote syslog
 - name: Import logrotate
