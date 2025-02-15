@@ -15,15 +15,15 @@ allow-commands = ["tail", "grep", "grepcolor", "grepself", "greperrors"]
   stdin = "tail"
   action = ["grep", "--text", "--line-buffered", "--color=never", "-e", "$script"]
   default = ".*"
-  [commands.grepcolor]	# NOK
+  [commands.grepcolor] # NOK
   stdin = "tail"
   action = ["grep", "--text", "--line-buffered", "--color=always", "-e", "$script"]
   default = ".*"
-  [commands.grepself]	# NOK
+  [commands.grepself] # NOK
   stdin = "tail"
   action = ["grep", "--text", "--line-buffered", "--color=always", "-e", "$script"]
   default = "CLIENT_IP"
-  [commands.greperrors]	# NOK
+  [commands.greperrors] # NOK
   stdin = "tail"
   #action = ["grep", "--text", "--line-buffered", "--color=always", "-i", "-e", "'(ERROR|WARN|CRITICAL|\"[45]0[0-9]\")'"]
   action = ["grep", "--text", "--line-buffered", "--color=always", "-iE", "-e", "'(WARN|CRITICAL|FATAL|ALERT|\"[45]0[0-9]\")'"]

@@ -6,12 +6,16 @@ Requires=network.target
 
 [Service]
 Type=simple
-ExecStart={{ tailon_dst_bin | default('/usr/local/bin') }}/tailon {{ tailon_args }} {{ tailon_logs_list | join(' ')}}
+ExecStart={{ tailon_dst_bin | default('/usr/local/bin') }}/tailon {{ tailon_args }} {{ tailon_logs_list | join(' ') }}
 WorkingDirectory={{ tailon_working_dir | default('/var/tmp') }}
 Restart=always
 RestartSec=10
 User={{ tailon_user }}
-Group={% if ansible_os_family == "RedHat" %}nobody{% else %}nogroup{% endif %}
+{% if ansible_os_family == "RedHat" %}
+Group=nobody
+{% else %}
+Group=nogroup
+{% endif %}
 
 
 # Hardening
@@ -42,6 +46,7 @@ RestrictAddressFamilies=AF_INET AF_INET6
 RestrictAddressFamilies=~AF_NETLINK AF_PACKET AF_UNIX
 
 IPAccounting=yes
+{# j2lint: disable=jinja-variable-format #}
 IPAddressAllow={{ tailon_ipaddressallow | default('localhost link-local multicast 10.0.0.0/8 192.168.1.0/24') }}
 # IPAddressDeny=
 
