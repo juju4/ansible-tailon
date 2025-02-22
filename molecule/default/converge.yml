@@ -6,6 +6,10 @@
     https_proxy: "{{ lookup('env', 'https_proxy') }}"
     no_proxy: "{{ lookup('env', 'no_proxy') }}"
   remote_user: root
+  vars:
+    tailon_logs_list:
+      - /var/log/syslog
+      - /var/log/auth.log
   pre_tasks:
     - name: Ubuntu | Install python3
       ansible.builtin.raw: test -e /usr/bin/python3 || (apt -y update && apt install -y python3-minimal)
