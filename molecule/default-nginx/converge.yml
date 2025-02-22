@@ -61,3 +61,4 @@
         var: ansible_virtualization_type
   roles:
     - juju4.tailon
+    - juju4.harden_nginx
