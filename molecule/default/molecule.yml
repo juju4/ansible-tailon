@@ -5,9 +5,19 @@ driver:
   name: docker
 platforms:
   - name: instance
-    image: docker.io/pycontribs/centos:7
-    pre_build_image: true
+    image: ${MOLECULE_DISTRO:-ubuntu:24.04}
+    # env:
+    #   http_proxy: ${http_proxy}
+    #   https_proxy: ${https_proxy}
+    #   no_proxy: ${no_proxy}
+    groups:
+      - tailon_group
 provisioner:
   name: ansible
+  config_options:
+    defaults:
+      verbosity: 2
+scenario:
+  name: default
 verifier:
   name: ansible
