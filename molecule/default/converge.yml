@@ -34,9 +34,5 @@
     - name: Debug | var ansible_virtualization_type
       ansible.builtin.debug:
         var: ansible_virtualization_type
-  vars:
-    tailon_logs_list: []
-  tasks:
-    - name: "Include juju4.tailon"
-      ansible.builtin.include_role:
-        name: "juju4.tailon"
+  roles:
+    - juju4.tailon
