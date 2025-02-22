@@ -8,7 +8,7 @@
     processes:
       - { u: _tailon, p: tailon }
     ports:
-      - { h: 127.0.0.1, p: 9632 }
+      - { h: 127.0.0.1, p: 8080 }
     is_container: false
   pre_tasks:
     - name: RedHat | Ensure ps and host are present
