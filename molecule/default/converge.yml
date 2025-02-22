@@ -38,5 +38,10 @@
     - name: Debug | var ansible_virtualization_type
       ansible.builtin.debug:
         var: ansible_virtualization_type
+    - name: Docker | Set fact
+      ansible.builtin.set_fact:
+        tailon_logs_list: []
+      when:
+        - ansible_virtualization_type == 'docker'
   roles:
     - juju4.tailon
