@@ -27,10 +27,10 @@
       - { p: "/etc/ssl/private/{{ hardenwebserver_target_host_cn }}.key", perm: r }
       - { p: "/etc/ssl/certs/{{ hardenwebserver_target_host_cn }}.crt", perm: r }
       - { p: "/var/log/nginx/access.log", perm: rw }
-      - { p: "/var/log/nginx/access_json.log", perm: rw }
+      # - { p: "/var/log/nginx/access_json.log", perm: rw }
       - { p: "/var/log/nginx/error.log", perm: rw }
-      - { p: "/var/log/nginx/tailon.access.log", perm: rw }
-      - { p: "/var/log/nginx/tailon.error.log", perm: rw }
+      # - { p: "/var/log/nginx/tailon.access.log", perm: rw }
+      # - { p: "/var/log/nginx/tailon.error.log", perm: rw }
   pre_tasks:
     - name: Ubuntu | Install python3
       ansible.builtin.raw: test -e /usr/bin/python3 || (apt -y update && apt install -y python3-minimal)
