@@ -11,7 +11,7 @@
       - /var/log/syslog
       - /var/log/auth.log
     hardenwebserver_disable_http: true
-    hardenwebserver_https_template: nginx.conf.j2
+    hardenwebserver_https_template: ../../templates/nginx.conf.j2
     hardenwebserver_header_csp: "default-src 'none'; script-src 'self' 'report-sample' 'unsafe-inline'; connect-src 'self'; img-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data: ; base-uri 'none'; frame-ancestors 'none'; form-action 'self'; upgrade-insecure-requests; report-uri /csp/report.php;"
     hardenwebserver_target_host_cn: "{{ ansible_fqdn }}"
     hardenwebserver_target_host_san:
