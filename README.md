@@ -1,6 +1,3 @@
-[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
-# DEPRECATED/LOOKING FOR MAINTAINERS -> archived
-
 [![Actions Status - Master](https://github.com/juju4/ansible-tailon/workflows/AnsibleCI/badge.svg)](https://github.com/juju4/ansible-tailon/actions?query=branch%3Amaster)
 [![Actions Status - Devel](https://github.com/juju4/ansible-tailon/workflows/AnsibleCI/badge.svg?branch=devel)](https://github.com/juju4/ansible-tailon/actions?query=branch%3Adevel)
 
