@@ -1,8 +1,11 @@
 ---
 # defaults file for juju4.tailon
 
-tailon_url: https://github.com/gvalkov/tailon/releases/download/v2.0.0/tailon_2.0.0_linux_amd64
-tailon_checksum: 'sha256:e5263c7eb0a986415c8662d0d70e7321c807ba2eb324afe139dd0489710eb9fa'
+# renovate: datasource=github-releases depName=gvalkov/tailon
+tailon_github_version: 'v2.0.0'
+tailon_version: "{{ tailon_github_version | regex_replace('^v', '') }}"
+tailon_url: "https://github.com/gvalkov/tailon/releases/download/{{ tailon_github_version }}/tailon_{{ tailon_version }}_linux_amd64"
+# tailon_checksum: 'sha256:e5263c7eb0a986415c8662d0d70e7321c807ba2eb324afe139dd0489710eb9fa'
 tailon_user: _tailon
 tailon_groups: ''
 tailon_host: ''

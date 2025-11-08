@@ -17,7 +17,7 @@
     url: "{{ tailon_url }}"
     dest: "{{ tailon_archives | default('/tmp') }}"
     mode: '0644'
-    checksum: "{{ tailon_checksum }}"
+    checksum: "{{ tailon_checksum | default(omit) }}"
 
 - name: Unarchive tailon
   ansible.builtin.unarchive:
