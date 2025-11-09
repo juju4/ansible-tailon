@@ -5,7 +5,7 @@
     var: ansible_service_mgr
 
 - name: Systemd
-  when: ansible_service_mgr == 'systemd'
+  when: ansible_service_mgr == 'systemd' or ansible_os_family == 'RedHat'
   block:
     - name: Install systemd configuration
       ansible.builtin.template:
