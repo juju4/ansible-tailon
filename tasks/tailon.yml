@@ -7,7 +7,7 @@
     shell: /sbin/nologin
     home: /var/_tailon
     create_home: false
-    group: "{% if ansible_os_family == 'RedHat' %}nobody{% else %}nogroup{% endif %}"
+    group: "{% if ansible_facts['os_family'] == 'RedHat' %}nobody{% else %}nogroup{% endif %}"
     groups: "{{ tailon_groups }}"
     append: "{{ tailon_groups_append | default(false) }}"
     system: true
