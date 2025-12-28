@@ -11,7 +11,7 @@ WorkingDirectory={{ tailon_working_dir | default('/var/tmp') }}
 Restart=always
 RestartSec=10
 User={{ tailon_user }}
-{% if ansible_os_family == "RedHat" %}
+{% if ansible_facts['os_family'] == "RedHat" %}
 Group=nobody
 {% else %}
 Group=nogroup
@@ -75,8 +75,8 @@ CapabilityBoundingSet=~CAP_SYS_PACCT
 CapabilityBoundingSet=~CAP_SYS_TTY_CONFIG
 CapabilityBoundingSet=~CAP_SYS_ADMIN
 
-{% if not (ansible_virtualization_type is defined and
-          ansible_virtualization_type == "docker"
+{% if not (ansible_facts['virtualization_type'] is defined and
+          ansible_facts['virtualization_type'] == "docker"
         )
 %}
 SystemCallFilter=@system-service
