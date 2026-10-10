@@ -1,7 +1,7 @@
-[![Actions Status - Master](https://github.com/juju4/ansible-tailon/workflows/AnsibleCI/badge.svg)](https://github.com/juju4/ansible-tailon/actions?query=branch%3Amaster)
-[![Actions Status - Devel](https://github.com/juju4/ansible-tailon/workflows/AnsibleCI/badge.svg?branch=devel)](https://github.com/juju4/ansible-tailon/actions?query=branch%3Adevel)
-
 # Tailon install
+
+[![Actions Status - Main](https://github.com/juju4/ansible-tailon/workflows/AnsibleCI/badge.svg)](https://github.com/juju4/ansible-tailon/actions?query=branch%3Amain)
+[![Actions Status - Devel](https://github.com/juju4/ansible-tailon/workflows/AnsibleCI/badge.svg?branch=devel)](https://github.com/juju4/ansible-tailon/actions?query=branch%3Adevel)
 
 This role will install [Tailon](https://github.com/gvalkov/tailon), a web tail utility in Go.
 
